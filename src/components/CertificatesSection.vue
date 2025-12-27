@@ -205,7 +205,9 @@ const loadCertificates = () => {
   certificates.value = certificateData.map((cert, index) => {
     const extension = cert.filename.split('.').pop().toLowerCase()
     const type = extension === 'pdf' ? 'pdf' : 'image'
-    const filePath = `/sertif/${cert.filename}`
+    // Use import.meta.env.BASE_URL to get the correct base path for GitHub Pages
+    const basePath = import.meta.env.BASE_URL || '/'
+    const filePath = `${basePath}sertif/${cert.filename}`
 
     return {
       id: index + 1,
