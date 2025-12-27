@@ -18,13 +18,11 @@
             <!-- Jika ada thumbnail (untuk gambar atau PDF dengan screenshot) -->
             <img v-if="cert.thumbnail" :src="cert.thumbnail" :alt="cert.title" />
 
-            <!-- Jika PDF tanpa thumbnail, tampilkan iframe preview (bisa lambat) -->
-            <iframe
-              v-else-if="cert.type === 'pdf'"
-              :src="cert.file + '#toolbar=0&navpanes=0&scrollbar=0'"
-              class="pdf-preview"
-              scrolling="no"
-            ></iframe>
+            <!-- Jika PDF tanpa thumbnail, tampilkan icon PDF placeholder -->
+            <div v-else-if="cert.type === 'pdf'" class="pdf-icon-placeholder">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-text">PDF Certificate</div>
+            </div>
 
             <div class="certificate-overlay">
               <span class="zoom-icon">🔍</span>
@@ -316,13 +314,28 @@ onMounted(() => {
   background: rgba(30, 30, 40, 0.9);
 }
 
-.pdf-preview {
+.pdf-icon-placeholder {
   width: 100%;
   height: 100%;
-  border: none;
-  pointer-events: none;
-  transform: scale(1.2);
-  transform-origin: top center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1));
+  border: 2px dashed rgba(0, 255, 136, 0.3);
+}
+
+.pdf-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.pdf-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .certificate-image img {
